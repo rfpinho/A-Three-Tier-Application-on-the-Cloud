@@ -1,0 +1,365 @@
+swagger: '2.0'
+info:
+  title: Projeto ES
+  version: "0.1"
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /:
+    get:
+      tags: [home]
+      operationId: application.index
+      summary: Index
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+  /login:
+    post:
+      tags: [sessao]
+      operationId: application.login
+      summary: Login
+      parameters:
+        - name: email
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: password
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+  /logout:
+    get:
+      tags: [sessao]
+      operationId: application.logout
+      summary: Logout
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+  /utilizador:
+    post:
+      tags: [utilizador]
+      operationId: application.registarConta
+      summary: Registar conta
+      parameters:
+        - name: nome
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: email
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: password
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: telefone
+          in: query
+          type: integer
+          pattern: "^[0-9]*$"
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+    get:
+      tags: [utilizador]
+      operationId: application.obterInfoUtilizador
+      summary: Obter info utilizador
+      responses:
+        200:
+          description: Return json
+    put:
+      tags: [utilizador]
+      operationId: application.editarConta
+      summary: Editar conta
+      parameters:
+        - name: nome
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: email
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: password
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: telefone
+          in: query
+          type: integer
+          pattern: "^[0-9]*$"
+      responses:
+        200:
+          description: Return json
+    delete:
+      tags: [utilizador]
+      operationId: application.removerConta
+      summary: Remover conta
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+  /musica:
+    post:
+      tags: [musica]
+      operationId: application.inserirMusica
+      summary: Inserir música
+      parameters:
+        - name: titulo
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: artista
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: album
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+        - name: anoLancamento
+          in: query
+          type: integer
+          pattern: "^[0-9]*$"
+        - name: ficheiro
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+      responses:
+        200:
+          description: Return página html
+          examples:
+            text/html:
+    get:
+      tags: [musica]
+      operationId: application.listarMusicas
+      summary: Listar músicas
+      responses:
+        200:
+          description: Return json
+  /musica/{idMusica}:
+    put:
+      tags: [musica]
+      operationId: application.editarMusica
+      summary: Editar música
+      parameters:
+        - $ref: '#/parameters/idMusica'
+      responses:
+        200:
+          description: Return json
+    delete:
+      tags: [musica]
+      operationId: application.removerMusica
+      summary: Remover música
+      parameters:
+        - $ref: '#/parameters/idMusica'
+      responses:
+        200:
+          description: Return json
+  /adicionaMusicaPlaylist:
+    post:
+      tags: [MusicaPlaylist]
+      operationId: application.adicionarMusicaPlaylist
+      summary: Adicionar música playlist
+      parameters:
+        - name: idPlaylist
+          in: query
+          type: integer
+          pattern: "^[0-9]*$"
+        - name: idMusica
+          in: query
+          type: integer
+          pattern: "^[0-9]*$"
+      responses:
+        200:
+          description: Return json
+  /playlist:
+    post:
+      tags: [playlist]
+      operationId: application.criarPlaylist
+      summary: Criar playlist
+      parameters:
+        - name: nome
+          in: query
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+      responses:
+        200:
+          description: Return json
+  /playlist/{idPlaylist}:
+    put:
+      tags: [playlist]
+      operationId: application.editarPlaylist
+      summary: Editar playlist
+      parameters:
+        - $ref: '#/parameters/idPlaylist'
+      responses:
+        200:
+          description: Return json
+    delete:
+      tags: [playlist]
+      operationId: application.removerPlaylist
+      summary: Remover playlist
+      parameters:
+        - $ref: '#/parameters/idPlaylist'
+      responses:
+        200:
+          description: Return json
+  /playlist/{tipo}:
+    get:
+      tags: [playlist]
+      operationId: application.listarPlaylists
+      summary: Listar playlists
+      parameters:
+        - $ref: '#/parameters/tipo'
+      responses:
+        200:
+          description: Return json
+  /listaMusicasPlaylists/{idPlaylist}:
+    get:
+      tags: [playlist]
+      operationId: application.listarMusicasPlaylists
+      summary: Lista músicas playlists
+      parameters:
+        - $ref: '#/parameters/idPlaylist'
+      responses:
+        200:
+          description: Return json
+  /removeMusicaPlaylist/{idPlaylist}:
+    delete:
+      tags: [playlist]
+      operationId: application.removerMusicaPlaylist
+      summary: Remover musica playlist
+      parameters:
+        - $ref: '#/parameters/idPlaylist'
+      responses:
+        200:
+          description: Return json
+  /musicasSistema/{titulo}/{artista}:
+    get:
+      tags: [musicasSistema]
+      operationId: application.pesquisarMusicaSistema
+      summary: Pesquisar música sistema
+      parameters:
+        - $ref: '#/parameters/titulo'
+        - $ref: '#/parameters/artista'
+      responses:
+        200:
+          description: Return json
+  /musicasSistema:
+    get:
+      tags: [musicasSistema]
+      operationId: application.listarMusicasSistema
+      summary: Listar músicas sistema
+      responses:
+        200:
+          description: Return json
+  /computefibonacci:
+    get:
+      tags: [Teste]
+      operationId: application.httpFibonacci
+      summary: Compute fibonacci
+      parameters:
+        - name: n
+          in: query
+          type: integer
+      responses:
+        200:
+          description: Return playlists
+          schema:
+            type: integer
+  /{html_page_name}:
+    get:
+      tags: [Playlists]
+      operationId: application.send_html
+      produces:
+        - text/html; charset=utf-8
+      summary: Retorna html
+      parameters:
+        - $ref: '#/parameters/html_page_name'
+      responses:
+        200:
+          description: retorna o texto do html
+          examples:
+            text/html:
+              <html><body>Your HTML text</body></html>
+  /js/{js_page_name}:
+    get:
+      tags: [Playlists]
+      operationId: application.send_javascript
+      produces:
+        - application/javascript; charset=utf-8
+      summary: Retorna javascript
+      parameters:
+        - $ref: '#/parameters/js_page_name'
+      responses:
+        200:
+          description: retorna o texto do javascript
+          examples:
+            text/html:
+              <html><body>Change the example</body></html>
+
+parameters:
+  html_page_name:
+    name: html_page_name
+    description: nome da página html
+    in: path
+    type: string
+    pattern: "^[a-zA-Z0-9]*.html$"
+    required: true
+  js_page_name:
+    name: js_page_name
+    description: nome da página javascript
+    in: path
+    type: string
+    pattern: "^[a-zA-Z0-9]*.js$"
+    required: true
+  idMusica:
+    name: idMusica
+    description: identificador único da música
+    in: path
+    type: integer
+    required: true
+    pattern: "^[0-9-]+$"
+  titulo:
+    name: titulo
+    description: título da musica
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9- ]+$"
+  artista:
+    name: artista
+    description: artista da música
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9- ]+$"
+  idPlaylist:
+    name: idPlaylist
+    description: identificador único da playlist
+    in: path
+    type: integer
+    required: true
+    pattern: "^[0-9-]+$"
+  tipo:
+    name: tipo
+    description: tipo para ordenação da playlist
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9-]+$"
